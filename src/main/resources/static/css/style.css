@@ -4,3 +4,21 @@
 	width:1200px;
 	margin:0 auto;
 }
+.contents > .w-500{
+	width:500px;
+}
+.contents > .input-box-wrap{
+	width:100%;
+} 
+.input-box{
+	width:500px;
+	margin:0 auto;
+}
+header{
+	height:60px;
+	border-bottom:1px solid #dddddd;
+}
+footer{
+	height:60px;
+	border-top:1px solid #dddddd;
+}
