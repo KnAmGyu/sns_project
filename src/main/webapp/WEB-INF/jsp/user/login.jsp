@@ -19,10 +19,12 @@
 			<div class="input-box-wrap">
 				<h2 class="text-center my-5">LangstarGram</h2>
 				<div class="input-box">
-					<input type="text" placeholder="아이디" class="form-control mt-4" id="loginIdInput">
-					<input type="password" placeholder="비밀번호" class="form-control mt-4" id="passwordInput">
-				
-					<button type="button" class="btn btn-secondary btn-block mt-4" id="loginBtn">로그인</button>
+					<form id="loginForm">
+						<input type="text" placeholder="아이디" class="form-control mt-4" id="loginIdInput">
+						<input type="password" placeholder="비밀번호" class="form-control mt-4" id="passwordInput">
+					
+						<button type="submit" class="btn btn-secondary btn-block mt-4" id="loginBtn">로그인</button>
+					</form>
 					<div class="d-block mt-2 text-center">
 						<a href="/user/join-view">회원가입</a>
 					</div>
@@ -39,7 +41,12 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script>
 		$(document).ready(function(){
-			$("#loginBtn").on("click", function(){
+			// $("#loginBtn").on("click", function(){
+			$("#loginForm").on("submit", function(e){	
+				
+				// form 태그가 가진 페이지 이동 기능을 막자
+				e.preventDefault();
+				
 				let loginId = $("#loginIdInput").val();
  				let password = $("#passwordInput").val();
  				
@@ -58,7 +65,7 @@
  					, data:{"loginId":loginId,"password":password}
  					, success:function(data){
  						if(data.result == "success"){
- 							location.href = "/post/list-view"
+ 							location.href = "/post/timeline-view"
  						}else{
  							alert("아이디 비밀번호를 확인해 주세요");
  						}
