@@ -10,6 +10,10 @@
 .contents > .input-box-wrap{
 	width:100%;
 } 
+.contents > .post-layout{
+	width:800px;
+	margin: 0 auto;
+}
 .input-box{
 	width:500px;
 	margin:0 auto;

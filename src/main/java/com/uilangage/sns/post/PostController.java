@@ -7,6 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class PostController {
 	
+	
+	@GetMapping("/create-view")
+	public String postInput() {
+		return "post/input";
+	}
+	
+	
 	@GetMapping("/timeline-view")
 	public String timeline(){
 		return "/post/timeline";

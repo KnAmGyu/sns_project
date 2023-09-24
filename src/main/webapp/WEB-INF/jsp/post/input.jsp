@@ -14,9 +14,9 @@
 		<c:import url="/WEB-INF/jsp/include/header.jsp" />
 		<section class="contents d-flex">
 			<div class="post-layout">
-				<div class="mt-3">
-					
-				</div>
+				<input type="text" class="form-control"> 
+				<textarea class="form-control">
+				</textarea>
 			</div>
 		</section>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
