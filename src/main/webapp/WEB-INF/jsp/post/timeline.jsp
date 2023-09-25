@@ -14,13 +14,15 @@
 		<c:import url="/WEB-INF/jsp/include/header.jsp" />
 		<section class="contents d-flex">
 			<div class="post-layout">
+			<c:forEach var="post" items="${postList }" >
 				<div class="timeline-content mt-3">
-					<div class="userId-area">kangng0806</div>
-					<div class="image-area"><img src=""></div>
-					<div class="content-area">메모메모</div>
+					<div class="userId-area">${userLoginId }</div>
+					<div class="image-area"><img width="100%" src="${post.imagePath }"></div>
+					<div class="content-area">${post.content }</div>
 					<div class="like-area"><a></a></div>
 					<div class="coment-area"></div>
 				</div>
+			</c:forEach>	
 				<div class="bottom-menu d-flex"><a href="/post/create-view"><img src="https://iconmonstr.com/wp-content/g/gd/makefg.php?i=../releases/preview/7.0.0/png/iconmonstr-plus-circle-lined.png&r=0&g=0&b=0"></a></div>
 			</div>
 		</section>

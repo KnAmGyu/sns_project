@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.uilangage.sns.post.domain.Post;
 import com.uilangage.sns.post.service.PostService;
@@ -23,13 +24,13 @@ public class PostRestController {
 	@PostMapping("/create")
 	public Map<String, String> createPost(
 			@RequestParam("content") String content
-//			, @RequestParam("imagePath") String imagePath
+			, @RequestParam(value="imageFile", required=false) MultipartFile file
 			, HttpSession session){
 		
 		int userId = (Integer)session.getAttribute("userId");
 		
 		
-		Post post = postService.addPost(userId, content);
+		Post post = postService.addPost(userId, content, file);
 		
 		Map<String, String> resultMap = new HashMap<>();
 		

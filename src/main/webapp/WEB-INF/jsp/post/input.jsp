@@ -17,7 +17,7 @@
 				<div class="input-layout">
 					<textarea class="contents-input form-control mt-3" row="10" id="contentInput""></textarea>
 					<div class="d-flex justify-content-between my-3">
-						<input type="file" class="ml-2">
+						<input type="file" class="ml-2" id="fileInput">
 						<a type="button" class="img-btn mr-3" id="saveBtn"><img src="https://cdns.iconmonstr.com/wp-content/releases/preview/2013/240/iconmonstr-save-6.png"></a>
 					</div>
 					
@@ -37,15 +37,24 @@
 			
 			let content = $("#contentInput").val();
 			
+			let file = $("#fileInput")[0];
+			
 			if(content == ""){
 				alert("내용을 입력하세요");
 				return ;
 			}
+			//{"content":content}
+			let formData = new FormData();
+				formData.append("content", content);
+				formData.append("imageFile", file.files[0]);
 			
 			$.ajax({
 				type:"post"
 				, url:"/post/create"
-				, data:{"content":content}
+				, data:formData
+				, enctype:"multipart/form-data"  // 파일 업로드 필수 옵션
+				, processData:false  // 파일 업로드 필수 옵션
+				, contentType:false   // 파일 업로드 필수 옵션
 				, success:function(data){
 					if(data.result == "success"){
 						location.href = "/post/timeline-view";
