@@ -7,12 +7,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.uilangage.sns.post.domain.Post;
 import com.uilangage.sns.post.service.PostService;
-
+@RequestMapping("/post")
 @RestController
 public class PostRestController {
 

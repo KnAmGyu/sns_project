@@ -14,6 +14,31 @@
 	width:800px;
 	margin: 0 auto;
 }
+.contents > .post-layout > .timeline-content{
+	padding:12px 0;
+}
+.userId-area{
+	padding: 10px 0 10px 16px;
+	border-bottom: 1px solid #dddddd;
+}
+.image-area{
+	width:800px;
+}
+.content-area{
+	min-height: 300px;
+}
+.bottom-menu{
+	padding:20px;
+}
+.bottom-menu > a > img{
+	width:32px;
+}
+.input-layout > .contents-input{
+	height:200px;
+}
+.img-btn > img{
+	width:32px;
+}
 .input-box{
 	width:500px;
 	margin:0 auto;
