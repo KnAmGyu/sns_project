@@ -1,5 +1,6 @@
 package com.uilangage.sns.user.service;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,13 @@ public class UserService {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	
+	public User getUserIdByPost(int id) {
+		User user = userRepository.findById(id);
+		return user;
+	}
+	
 	
 	public boolean isDuplicateId(String loginId) {
 		

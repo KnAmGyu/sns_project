@@ -29,8 +29,7 @@ public class PostController {
 	public String timeline(Model model
 			, HttpSession session){
 		
-		int userId = (Integer)session.getAttribute("userId");
-		List<Post> postList = postService.getPostList(userId);
+		List<Post> postList = postService.getPostList();
 		model.addAttribute("postList", postList);
 		
 		return "/post/timeline";

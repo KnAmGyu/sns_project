@@ -17,15 +17,15 @@
 .contents > .post-layout > .timeline-content{
 	padding:12px 0;
 }
-.userId-area{
-	padding: 10px 0 10px 16px;
-	border-bottom: 1px solid #dddddd;
-}
+
 .image-area{
 	width:800px;
 }
 .content-area{
 	max-height: 300px;
+}
+.coment-tit{
+	background-color: #f8f9fa;
 }
 .bottom-menu{
 	padding:20px;

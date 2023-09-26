@@ -14,7 +14,7 @@
 		<c:import url="/WEB-INF/jsp/include/header.jsp" />
 		<section class="contents d-flex">
 			<div class="w-500">
-				<img src="https://scsgozneamae10236445.cdn.ntruss.com/data2/content/image/2019/01/29/.cache/512/201901290839179.jpg">
+				<img src="/static/images/main_images.jpg">
 			</div>
 			<div class="input-box-wrap">
 				<h2 class="text-center my-5">LangstarGram</h2>

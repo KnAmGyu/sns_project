@@ -10,6 +10,6 @@ import com.uilangage.sns.post.domain.Post;
 @Repository
 public interface PostRepository  extends JpaRepository<Post, Integer>{
 
-	public List<Post> findByUserId(int userId);
+	public List<Post> findAllByOrderByIdDesc();
 	
 }

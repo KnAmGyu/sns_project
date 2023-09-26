@@ -16,10 +16,10 @@ public class PostService {
 	@Autowired
 	private PostRepository postRepository;
 	
-	public List<Post> getPostList(int userId){
+	public List<Post> getPostList(){
 		
 	
-		return postRepository.findByUserId(userId);
+		return postRepository.findAllByOrderByIdDesc();
 		
 }
 	
