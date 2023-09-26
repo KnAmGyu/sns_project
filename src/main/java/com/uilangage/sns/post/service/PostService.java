@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.uilangage.sns.common.FileManager;
 import com.uilangage.sns.post.domain.Post;
 import com.uilangage.sns.post.repository.PostRepository;
+import com.uilangage.sns.user.service.UserService;
 
 @Service
 public class PostService {
@@ -16,10 +17,19 @@ public class PostService {
 	@Autowired
 	private PostRepository postRepository;
 	
+	@Autowired
+	private UserService userService;
+	
+	
+	
 	public List<Post> getPostList(){
 		
-	
-		return postRepository.findAllByOrderByIdDesc();
+		 postRepository.findAllByOrderByIdDesc();
+		
+				 
+		 userService.getUserIdByPost();
+		 
+		return  
 		
 }
 	
