@@ -40,7 +40,7 @@
 						</div>
 						
 						<div class="d-flex">
-							<input type="text" class="form-control commentInput" data-comment-id="${post.userId }">
+							<input type="text" class="form-control commentInput" data-comment-id="${post.loginId }">
 							<button type="button" class="btn btn-secondary commentBtn" data-comment-id="${post.id }">게시</button>
 						</div>
 					</div>
