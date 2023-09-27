@@ -25,12 +25,12 @@
 			<c:forEach var="post" items="${postList }" >
 				<div class="card timeline-content mt-3">
 					<div class="d-flex justify-content-between p-2">
-						<div class="userId-area">${post.userId }</div>
+						<div class="userId-area">${post.loginId }</div>
 						<i class="bi bi-three-dots-vertical"></i>
 					</div>
 					
 					<div class="image-area"><img width="100%" src="${post.imagePath }"></div>
-					<div class="content-area p-2">${post.content }</div>
+					<div class="content-area p-2"><b>${post.loginId }</b> ${post.content }</div>
 					<div class="like-area p-2"><a><i class="bi bi-heart"></i></a> 좋아요 11개</div>
 					<div class="coment-area">
 						<div class="p-2 coment-tit">댓글</div>
@@ -40,8 +40,8 @@
 						</div>
 						
 						<div class="d-flex">
-							<input type="text" class="form-control">
-							<button type="button" class="btn btn-secondary">게시</button>
+							<input type="text" class="form-control commentInput" data-comment-id="${post.userId }">
+							<button type="button" class="btn btn-secondary commentBtn" data-comment-id="${post.id }">게시</button>
 						</div>
 					</div>
 				</div>
@@ -58,6 +58,34 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script>
 	$(document).ready(function(){
+		$(".commentBtn").on("click", function(){
+			let content = $(".commentInput").val();
+			let postId = $(this).data("post-id");
+			
+			if(content == ""){
+				alert("댓글 내용을 입력하세요.");
+				return ;
+			}
+			
+			$.ajax({
+				type:"get"
+				, url:"/post/comment/create"
+				, data:{"postId":postId,"content":content}
+				, success:function(data){
+					if(data.result == "success"){
+						location.reload();
+					}else{
+						alert("댓글작성 실패");
+					}
+				}
+				, error:function(){
+					alert("댓글작성 에러");
+				}
+			});
+			
+		});
+		
+		
 		$("#saveBtn").on("click",function(){
 			
 			let content = $("#contentInput").val();
@@ -88,7 +116,7 @@
 				, contentType:false   // 파일 업로드 필수 옵션
 				, success:function(data){
 					if(data.result == "success"){
-						location.href = "/post/timeline-view";
+						location.reload();
 					}else{
 						alert("메모작성 실패");
 					}

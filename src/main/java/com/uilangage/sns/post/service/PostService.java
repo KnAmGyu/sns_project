@@ -1,5 +1,6 @@
 package com.uilangage.sns.post.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.uilangage.sns.common.FileManager;
 import com.uilangage.sns.post.domain.Post;
+import com.uilangage.sns.post.dto.PostDetail;
 import com.uilangage.sns.post.repository.PostRepository;
+import com.uilangage.sns.user.domain.User;
 import com.uilangage.sns.user.service.UserService;
 
 @Service
@@ -22,15 +25,26 @@ public class PostService {
 	
 	
 	
-	public List<Post> getPostList(){
+	public List<PostDetail> getPostList(){
 		
-		 postRepository.findAllByOrderByIdDesc();
+		List<Post> postList = postRepository.findAllByOrderByIdDesc();
 		
-				 
-		 userService.getUserIdByPost();
-		 
-		return  
-		
+		List<PostDetail> postDetailList = new ArrayList<>(); 
+		for(Post post:postList) {
+			int userId = post.getUserId();
+			User user = userService.getUserIdByPost(userId);
+			
+		   	PostDetail postDetail = PostDetail.builder()
+						   			.id(post.getId())
+									.userId(userId)
+									.content(post.getContent())
+									.imagePath(post.getImagePath())
+									.loginId(user.getLoginId())
+									.build();
+			
+			postDetailList.add(postDetail);
+		}
+		 return postDetailList;
 }
 	
 	
