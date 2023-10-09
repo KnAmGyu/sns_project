@@ -1,5 +1,6 @@
 package com.uilangage.sns.post.service;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.uilangage.sns.comment.domain.Comment;
+import com.uilangage.sns.comment.service.CommentService;
 import com.uilangage.sns.common.FileManager;
 import com.uilangage.sns.post.domain.Post;
 import com.uilangage.sns.post.dto.PostDetail;
@@ -23,6 +26,9 @@ public class PostService {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private CommentService commentService;
+	
 	
 	
 	public List<PostDetail> getPostList(){
@@ -33,11 +39,13 @@ public class PostService {
 		for(Post post:postList) {
 			int userId = post.getUserId();
 			User user = userService.getUserIdByPost(userId);
+			Comment comment = commentService.getpostIdByPost(userId);
 			
-		   	PostDetail postDetail = PostDetail.builder()
+ 		   	PostDetail postDetail = PostDetail.builder()
 						   			.id(post.getId())
 									.userId(userId)
 									.content(post.getContent())
+									.comment(comment.getContent())
 									.imagePath(post.getImagePath())
 									.loginId(user.getLoginId())
 									.build();

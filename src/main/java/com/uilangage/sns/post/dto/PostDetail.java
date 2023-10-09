@@ -13,6 +13,7 @@ public class PostDetail {
 	private int userId;
 	private String loginId;
 	private String content;
+	private String comment;
 	private String imagePath;
 	
 	

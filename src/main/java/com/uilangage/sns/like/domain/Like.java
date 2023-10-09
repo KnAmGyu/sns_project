@@ -1,4 +1,4 @@
-package com.uilangage.sns.post.domain;
+package com.uilangage.sns.like.domain;
 
 import java.util.Date;
 
@@ -20,28 +20,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Getter
-@Table(name="comment")
+@Table(name="like")
 @Entity
-public class Comment {
+public class Like {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	
 	@Column(name="postId")
 	private int postId;
 	
 	@Column(name="userId")
 	private int userId;
-	private String content;
 	
 	@UpdateTimestamp
 	@Column(name="createdAt", updatable=false)
 	private Date createdAt;
-	
-	@UpdateTimestamp
-	@Column(name="updatedAt")
-	private Date updatedAt;
 	
 	
 }

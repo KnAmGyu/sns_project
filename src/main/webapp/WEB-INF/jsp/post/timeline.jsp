@@ -35,13 +35,13 @@
 					<div class="coment-area">
 						<div class="p-2 coment-tit">댓글</div>
 						<div class="px-2 small my-2">
-							<div><b>kangng0806</b> 진짜 귀엽네요</div>
+							<div><b>${post.userId }</b> ${post.comment }</div>
 							<div><b>namgyu</b> 진짜 귀엽네요</div>
 						</div>
 						
 						<div class="d-flex">
-							<input type="text" class="form-control commentInput" data-comment-id="${post.loginId }">
-							<button type="button" class="btn btn-secondary commentBtn" data-comment-id="${post.id }">게시</button>
+							<input type="text" class="form-control commentInput" id="commentInput" btn:text="${post.id }">
+							<button type="button" class="btn btn-secondary commentBtn"  input:text="${post.id }" data-comment-id="${post.id }">게시</button>
 						</div>
 					</div>
 				</div>
@@ -59,8 +59,8 @@
 	<script>
 	$(document).ready(function(){
 		$(".commentBtn").on("click", function(){
-			let content = $(".commentInput").val();
-			let postId = $(this).data("post-id");
+			let content = $("#commentInput").val();
+			let postId = $(this).data("comment-id");
 			
 			if(content == ""){
 				alert("댓글 내용을 입력하세요.");
@@ -68,7 +68,7 @@
 			}
 			
 			$.ajax({
-				type:"get"
+				type:"post"
 				, url:"/post/comment/create"
 				, data:{"postId":postId,"content":content}
 				, success:function(data){
