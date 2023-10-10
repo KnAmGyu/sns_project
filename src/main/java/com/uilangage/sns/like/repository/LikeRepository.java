@@ -1,9 +1,16 @@
 package com.uilangage.sns.like.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.apache.ibatis.annotations.Param;
 
 import com.uilangage.sns.like.domain.Like;
 
-public interface LikeRepository  extends JpaRepository<Like, Integer> {
+public interface LikeRepository {
 
+	
+	public int addLike(
+			@Param("postId") int postId
+			, @Param("userId") int userId);
+	
+	public int selectCountLike(@Param("postId") int postId);
+	
 }

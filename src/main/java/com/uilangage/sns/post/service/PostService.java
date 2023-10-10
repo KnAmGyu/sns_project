@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.uilangage.sns.comment.domain.Comment;
 import com.uilangage.sns.comment.service.CommentService;
 import com.uilangage.sns.common.FileManager;
+import com.uilangage.sns.like.service.LikeService;
 import com.uilangage.sns.post.domain.Post;
 import com.uilangage.sns.post.dto.PostDetail;
 import com.uilangage.sns.post.repository.PostRepository;
@@ -29,6 +29,8 @@ public class PostService {
 	@Autowired
 	private CommentService commentService;
 	
+	@Autowired
+	private LikeService likeService;
 	
 	
 	public List<PostDetail> getPostList(){
@@ -37,17 +39,20 @@ public class PostService {
 		
 		List<PostDetail> postDetailList = new ArrayList<>(); 
 		for(Post post:postList) {
+			
 			int userId = post.getUserId();
 			User user = userService.getUserIdByPost(userId);
-			Comment comment = commentService.getpostIdByPost(userId);
+			// 좋아요 개수 조회
+			int likeCount = likeService.countLike(post.getId());
 			
  		   	PostDetail postDetail = PostDetail.builder()
 						   			.id(post.getId())
 									.userId(userId)
 									.content(post.getContent())
-									.comment(comment.getContent())
 									.imagePath(post.getImagePath())
 									.loginId(user.getLoginId())
+									.likeCount(likeCount)
+									.isLike(false)
 									.build();
 			
 			postDetailList.add(postDetail);

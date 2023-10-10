@@ -31,17 +31,24 @@
 					
 					<div class="image-area"><img width="100%" src="${post.imagePath }"></div>
 					<div class="content-area p-2"><b>${post.loginId }</b> ${post.content }</div>
-					<div class="like-area p-2"><a><i class="bi bi-heart"></i></a> 좋아요 11개</div>
+					<div class="like-area p-2">
+						<a>
+							<i class="bi bi-heart like-icon" data-post-id="${post.id }"></i>
+						</a> 
+						좋아요 ${post.likeCount }개
+					</div>
 					<div class="coment-area">
 						<div class="p-2 coment-tit">댓글</div>
 						<div class="px-2 small my-2">
-							<div><b>${post.userId }</b> ${post.comment }</div>
-							<div><b>namgyu</b> 진짜 귀엽네요</div>
+							<div>
+								<b>${post.userId }</b> ${post.comment }
+							</div>
+							
 						</div>
 						
 						<div class="d-flex">
-							<input type="text" class="form-control commentInput" id="commentInput" btn:text="${post.id }">
-							<button type="button" class="btn btn-secondary commentBtn"  input:text="${post.id }" data-comment-id="${post.id }">게시</button>
+							<input type="text" class="form-control comment-input" id="commentInput${post.id }" >
+							<button type="button" class="btn btn-secondary comment-btn" data-post-id="${post.id }">게시</button>
 						</div>
 					</div>
 				</div>
@@ -58,11 +65,12 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script>
 	$(document).ready(function(){
-		$(".commentBtn").on("click", function(){
-			let content = $("#commentInput").val();
-			let postId = $(this).data("comment-id");
+		$(".comment-btn").on("click", function(){
 			
-			if(content == ""){
+			let postId = $(this).data("post-id");
+			let comment = $("#commentInput" + postId).val();
+			
+			if(comment == ""){
 				alert("댓글 내용을 입력하세요.");
 				return ;
 			}
@@ -70,7 +78,7 @@
 			$.ajax({
 				type:"post"
 				, url:"/post/comment/create"
-				, data:{"postId":postId,"content":content}
+				, data:{"postId":postId,"content":comment}
 				, success:function(data){
 					if(data.result == "success"){
 						location.reload();
@@ -80,6 +88,31 @@
 				}
 				, error:function(){
 					alert("댓글작성 에러");
+				}
+			});
+			
+		});
+		
+		$(".like-icon").on("click",function(){
+			
+			let postId = $(this).data("post-id");
+			
+			$.ajax({
+				type:"post"
+				, url:"/post/like"
+				, data:{"postId":postId}
+				, success:function(data){
+					
+					if(data.result == "success"){
+						location.reload();
+					}else{
+						alert("좋아요 실패");
+					}
+					
+					
+				}
+				, error:function(){
+					alert("좋아요 에러");
 				}
 			});
 			
