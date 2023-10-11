@@ -32,18 +32,25 @@
 					<div class="image-area"><img width="100%" src="${post.imagePath }"></div>
 					<div class="content-area p-2"><b>${post.loginId }</b> ${post.content }</div>
 					<div class="like-area p-2">
-						<a>
-							<i class="bi bi-heart like-icon" data-post-id="${post.id }"></i>
-						</a> 
+						<c:choose> 
+							<c:when test="${post.like }">
+								<i class="bi bi-heart-fill liked-icon text-danger" data-post-id="${post.id }"></i>
+							</c:when>
+							<c:otherwise>
+								<i class="bi bi-heart like-icon" data-post-id="${post.id }"></i>	
+							</c:otherwise>
+						</c:choose>
+						
 						좋아요 ${post.likeCount }개
 					</div>
 					<div class="coment-area">
 						<div class="p-2 coment-tit">댓글</div>
 						<div class="px-2 small my-2">
-							<div>
-								<b>${post.userId }</b> ${post.comment }
-							</div>
-							
+							<c:forEach var="comment" items="${post.commentList }">
+								<div>
+									<b>${comment.loginId }</b> ${comment.content }
+								</div>
+							</c:forEach>
 						</div>
 						
 						<div class="d-flex">
@@ -65,6 +72,17 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script>
 	$(document).ready(function(){
+//		$(".liked-icon").on("click", function(){
+//			let postId = $(this).data("post-id");
+//			
+//			$.ajax({
+//				type:"post"
+//			});
+//			
+//		});
+		
+		
+		
 		$(".comment-btn").on("click", function(){
 			
 			let postId = $(this).data("post-id");

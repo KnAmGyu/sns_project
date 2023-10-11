@@ -21,7 +21,7 @@
 	<select id="selectCountLike" parameterType="int"
 	 resultType="int">
 		SELECT
-			count(*)
+			count(1)
 		FROM
 			`like`
 		WHERE
@@ -29,16 +29,15 @@
 	
 	</select>
 	
-	<select id="selectCountLike" parameterType="int"
+	<select id="selectCountLikeByUserId" parameterType="map"
 	 resultType="int">
 		SELECT
-			count(*)
+			count(1)
 		FROM
 			`like`
 		WHERE
 			`postId` = #{postId}		
-		AND
-			`userId` = #{userId}
+			AND	`userId` = #{userId}
 	</select>
 	
 	

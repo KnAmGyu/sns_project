@@ -25,4 +25,27 @@ public class LikeService {
 		
 		return likeRepository.addLike(postId, userId);
 	}
+	
+	
+	public boolean isLike(int postId, int userId) {
+		int count = likeRepository.selectCountLikeByUserId(postId, userId);
+		
+//		if(count == 0) {
+//			return false;
+//		}else {
+//			return true;
+//		}
+		
+		return count != 0;
+		
+	}
+	
+//	public void deleteLike(int id) {
+//		
+//		likeRepository.findById(id).ifPresent(like -> likeRepository.delete(like));
+//		
+//	}
+	
+	
+	
 }

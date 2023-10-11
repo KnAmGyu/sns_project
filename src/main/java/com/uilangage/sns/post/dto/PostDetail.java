@@ -4,7 +4,7 @@ package com.uilangage.sns.post.dto;
 
 import java.util.List;
 
-import com.uilangage.sns.comment.domain.Comment;
+import com.uilangage.sns.comment.dto.CommentDetail;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -21,8 +21,7 @@ public class PostDetail {
 	private String imagePath;
 	private int likeCount;
 	private boolean isLike;
-	private List<Comment> commentList;
-	//private List<CommentDetail> commentList;
+	private List<CommentDetail> commentList;
 	
 	
 }

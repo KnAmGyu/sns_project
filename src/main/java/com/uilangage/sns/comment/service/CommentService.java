@@ -1,11 +1,16 @@
 package com.uilangage.sns.comment.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uilangage.sns.comment.domain.Comment;
+import com.uilangage.sns.comment.dto.CommentDetail;
 import com.uilangage.sns.comment.repository.CommentRepository;
 import com.uilangage.sns.user.domain.User;
+import com.uilangage.sns.user.service.UserService;
 
 @Service
 public class CommentService {
@@ -13,12 +18,36 @@ public class CommentService {
 	@Autowired
 	private CommentRepository commentRepository;
 	
-	public Comment getpostIdByPost(int id) {
-		Comment comment = commentRepository.findById(id).orElse(null);
-		return comment;
+	@Autowired
+	private UserService userService;
+	
+	public List<CommentDetail> getCommentDetailList(int postId){
+		
+		List<Comment> commentList = commentRepository.findAllByPostId(postId);
+		
+		List<CommentDetail> commentDetailList = new ArrayList<>();
+		for(Comment comment:commentList) {
+			int userId = comment.getUserId();
+			User user = userService.getUserIdByPost(userId);
+			
+			CommentDetail commentDetail = CommentDetail.builder()
+											.id(comment.getId())
+											.userId(comment.getUserId())
+											.loginId(user.getLoginId())
+											.content(comment.getContent())
+											.build();
+			commentDetailList.add(commentDetail);
+		}
+		return commentDetailList;
+		
 	}
 	
 	
+	public List<Comment> getCommentList(int postId) {
+		
+		return  commentRepository.findAllByPostId(postId);
+		
+	}
 	
 	public Comment addComment(
 			int postId
