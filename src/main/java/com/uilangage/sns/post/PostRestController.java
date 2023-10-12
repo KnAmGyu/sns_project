@@ -21,7 +21,11 @@ public class PostRestController {
 	@Autowired
 	private PostService postService;
 	
-	
+	public Map<String, String> deletePost(@RequestParam("id")int id){
+		
+		 postService.deletePostList(id);
+		
+	}
 	
 	@PostMapping("/create")
 	public Map<String, String> createPost(

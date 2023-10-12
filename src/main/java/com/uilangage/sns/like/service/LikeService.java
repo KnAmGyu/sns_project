@@ -13,6 +13,10 @@ public class LikeService {
 	private LikeRepository likeRepository;
 	
 	
+	public int deleteLike(int postId) {
+		return likeRepository.deleteLike(postId);
+	}
+	
 	public int countLike(int postId) {
 		
 		return likeRepository.selectCountLike(postId);

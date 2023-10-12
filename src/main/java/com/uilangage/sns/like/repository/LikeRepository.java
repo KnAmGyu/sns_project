@@ -21,5 +21,7 @@ public interface LikeRepository {
 	
 	public int deleteById();
 
+	public int deleteLike(@Param("postId") int postId);
+	
 //	public int findById(@Param("id")int id);
 }

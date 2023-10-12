@@ -26,7 +26,8 @@
 				<div class="card timeline-content mt-3">
 					<div class="d-flex justify-content-between p-2">
 						<div class="userId-area">${post.loginId }</div>
-						<i class="bi bi-three-dots-vertical"></i>
+						<i class="bi bi-three-dots-vertical" id="deleteBtn${post.id }"></i>
+						<!--  data-toggle="modal" data-target="#moreMadal" -->
 					</div>
 					
 					<div class="image-area"><img width="100%" src="${post.imagePath }"></div>
@@ -64,6 +65,21 @@
 			</div>
 		</section>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
+		
+		
+		
+		<!-- Modal -->
+		<div class="modal fade" id="moreMadal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-centered" role="document">
+		    <div class="modal-content">
+		      <div class="modal-body text-center">
+		        <a href="#">삭제하기</a>
+		      </div>
+		      
+		    </div>
+		  </div>
+		</div>
+		
 	</div>
 	
 	
