@@ -26,7 +26,11 @@
 				<div class="card timeline-content mt-3">
 					<div class="d-flex justify-content-between p-2">
 						<div class="userId-area">${post.loginId }</div>
-						<i class="bi bi-three-dots-vertical" id="deleteBtn${post.id }"></i>
+						
+						<%-- 로그인 한 사용자의 게시글에만 more-btn 노출 --%>
+						<c:if test="${post.userId eq userId }">
+						<i class="bi bi-three-dots-vertical more-btn" data-post-id="${post.id }"></i>
+						</c:if>
 						<!--  data-toggle="modal" data-target="#moreMadal" -->
 					</div>
 					
@@ -73,7 +77,7 @@
 		  <div class="modal-dialog modal-dialog-centered" role="document">
 		    <div class="modal-content">
 		      <div class="modal-body text-center">
-		        <a href="#">삭제하기</a>
+		        <a href="#" id="deleteBtn" data-post-id="">삭제하기</a>
 		      </div>
 		      
 		    </div>
@@ -88,16 +92,60 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script>
 	$(document).ready(function(){
-//		$(".liked-icon").on("click", function(){
-//			let postId = $(this).data("post-id");
-//			
-//			$.ajax({
-//				type:"post"
-//			});
-//			
-//		});
+		$(".liked-icon").on("click", function(){
+			let postId = $(this).data("post-id");
+			
+			$.ajax({
+				type:"delete"
+				, url:"/post/unlike"
+				, data:{"postId":postId}
+				, success:function(data){
+					if(data.result == "success"){
+						location.reload();
+					}else{
+						alert("취소 실패");
+					}
+				}
+				, error:function(){
+					alert("취소 에러");
+				}
+			});
+			
+		});
 		
 		
+		$(".more-btn").on("click",function(){
+			//모달에 있는 삭제하기 링크 태그에 postId를 data 속성에 추가한다.
+			// data-post-id
+			let postId = $(this).data("post-id");
+			
+			$("#deleteBtn").data("post-id", postId)
+			
+		});
+		
+		
+		$("#deleteBtn").on("click",function(){
+			let postId = $(this).data("post-id"); 
+			
+			$.ajax({
+				type:"delete"
+				, url:"/post/delete"
+				, data:{"postId":postId}
+				, success:function(data){
+				if(data.result == "success"){
+					location.reload();
+				}else{
+					alert("삭제 실패");
+				}
+			}
+			, error:function(){
+				alert("삭제 에러");
+			}
+			});
+			
+			
+			
+		});
 		
 		$(".comment-btn").on("click", function(){
 			

@@ -42,4 +42,7 @@ public class Post {
 	@UpdateTimestamp
 	@Column(name="updatedAt")
 	private Date updatedAt;
-}
+
+		
+	}
+

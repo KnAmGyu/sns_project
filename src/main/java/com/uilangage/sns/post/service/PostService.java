@@ -33,16 +33,22 @@ public class PostService {
 	@Autowired
 	private LikeService likeService;
 	
-	public void deletePostList(int id) {
+	public boolean deletePost(int postId, int userId) {
 		
-		commentService.deleteComment(id);
+		commentService.deleteComment(postId);
 		
-		int count = likeService.deleteLike(id);
+		likeService.deleteLikeBypostId(postId);
 		
-		Post post = postRepository.findById(id);
+		Post post = postRepository.findById(postId);
 		
 		FileManager.removeFile(post.getImagePath());
-		postRepository.findById(id).ifPresent(post -> postRepository.delete(post));
+		
+		postRepository.findById(postId).ifPresent(post -> postRepository.delete(post));
+		
+		if(post.getUserId() != 0 && post == null) {
+			return true;
+		}
+		
 		
 	}
 	

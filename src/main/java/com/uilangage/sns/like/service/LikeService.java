@@ -12,9 +12,12 @@ public class LikeService {
 	@Autowired
 	private LikeRepository likeRepository;
 	
+	public int deleteLikeBypostIdAndUserId(int postId, int userId) {
+		return likeRepository.deleteLikeBypostIdAndUserId(postId,userId);
+	}
 	
-	public int deleteLike(int postId) {
-		return likeRepository.deleteLike(postId);
+	public int deleteLikeBypostId(int postId) {
+		return likeRepository.deleteLikeBypostId(postId);
 	}
 	
 	public int countLike(int postId) {

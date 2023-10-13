@@ -2,6 +2,7 @@ package com.uilangage.sns.comment.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,4 +15,7 @@ public interface CommentRepository extends JpaRepository<Comment, Integer>{
 	
 	public List<Comment> findAll();
 
+	public int deleteCommentByPostId(int postId);
+	
+	
 }

@@ -25,9 +25,9 @@ public class CommentService {
 	
 	
 	
-	public void deleteComment(int id) {
+	public void deleteComment(int postId) {
 
-		commentRepository.findById(id).ifPresent(comment -> commentRepository.delete(comment));
+		commentRepository.findById(postId).ifPresent(comment -> commentRepository.delete(comment));
 	}
 	
 	
