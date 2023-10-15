@@ -27,11 +27,10 @@
 					<div class="d-flex justify-content-between p-2">
 						<div class="userId-area">${post.loginId }</div>
 						
-						<%-- 로그인 한 사용자의 게시글에만 more-btn 노출 --%>
-						<c:if test="${post.userId eq userId }">
-						<i class="bi bi-three-dots-vertical more-btn" data-post-id="${post.id }"></i>
-						</c:if>
-						<!--  data-toggle="modal" data-target="#moreMadal" -->
+					<%-- 로그인한 사용자의 게시글에만 more-btn 노출 --%>
+							<c:if test="${post.userId eq userId }">
+							<i class="bi bi-three-dots-vertical more-btn" data-post-id="${post.id }" data-toggle="modal" data-target="#moreModal"></i>
+							</c:if>
 					</div>
 					
 					<div class="image-area"><img width="100%" src="${post.imagePath }"></div>
@@ -73,13 +72,12 @@
 		
 		
 		<!-- Modal -->
-		<div class="modal fade" id="moreMadal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal fade" id="moreModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 		  <div class="modal-dialog modal-dialog-centered" role="document">
 		    <div class="modal-content">
 		      <div class="modal-body text-center">
 		        <a href="#" id="deleteBtn" data-post-id="">삭제하기</a>
 		      </div>
-		      
 		    </div>
 		  </div>
 		</div>

@@ -18,48 +18,48 @@ import com.uilangage.sns.post.service.PostService;
 @RequestMapping("/post")
 @RestController
 public class PostRestController {
-
+	
 	@Autowired
 	private PostService postService;
 	
-	@DeleteMapping
-	public Map<String, String> deletePost(@RequestParam("postId")int postId){
+	@DeleteMapping("/delete")
+	public Map<String, String> deletePost(
+			@RequestParam("postId") int postId
+			, HttpSession session) {
 		
-
+		int userId = (Integer)session.getAttribute("userId");
+		int count = postService.deletePost(postId, userId);
 		
 		Map<String, String> resultMap = new HashMap<>();
 		
 		if(count == 1) {
 			resultMap.put("result", "success");
-		}else {
+		} else {
 			resultMap.put("result", "fail");
 		}
-		return resultMap;
-			
 		
+		return resultMap;
 	}
+	
 	
 	@PostMapping("/create")
 	public Map<String, String> createPost(
 			@RequestParam("content") String content
-			, @RequestParam(value="imageFile", required=false) MultipartFile file
-			, HttpSession session){
+			, @RequestParam("imageFile") MultipartFile file
+			, HttpSession session) {
 		
 		int userId = (Integer)session.getAttribute("userId");
 		
+		int count = postService.addPost(userId, content, file);
 		
-		Post post = postService.addPost(userId, content, file);
-		
-		Map<String, String> resultMap = new HashMap<>();
-		
-		if(post != null) {
+		Map<String, String> resultMap = new HashMap<>();	
+		if(count == 1) {
 			resultMap.put("result", "success");
-		}else {
+		} else {
 			resultMap.put("result", "fail");
 		}
-		return resultMap;
 		
+		return resultMap;
 	}
-	
-	
+
 }

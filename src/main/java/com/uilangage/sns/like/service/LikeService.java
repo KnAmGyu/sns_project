@@ -3,56 +3,40 @@ package com.uilangage.sns.like.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.uilangage.sns.like.domain.Like;
 import com.uilangage.sns.like.repository.LikeRepository;
 
 @Service
 public class LikeService {
-
+	
 	@Autowired
 	private LikeRepository likeRepository;
 	
-	public int deleteLikeBypostIdAndUserId(int postId, int userId) {
-		return likeRepository.deleteLikeBypostIdAndUserId(postId,userId);
-	}
-	
-	public int deleteLikeBypostId(int postId) {
-		return likeRepository.deleteLikeBypostId(postId);
+	public int addLike(int postId, int userId) {
+		return likeRepository.insertLike(postId, userId);
 	}
 	
 	public int countLike(int postId) {
-		
 		return likeRepository.selectCountLike(postId);
 	}
-	
-	
-	public int addLike(int postId, int userId) {
-		
-		
-		
-		return likeRepository.addLike(postId, userId);
-	}
-	
 	
 	public boolean isLike(int postId, int userId) {
 		int count = likeRepository.selectCountLikeByUserId(postId, userId);
 		
 //		if(count == 0) {
 //			return false;
-//		}else {
+//		} else {
 //			return true;
 //		}
 		
 		return count != 0;
-		
 	}
 	
-//	public void deleteLike(int id) {
-//		
-//		likeRepository.findById(id).ifPresent(like -> likeRepository.delete(like));
-//		
-//	}
+	public int deleteLikeByPostId(int postId) {
+		return likeRepository.deleteLikeByPostId(postId);
+	}
 	
-	
-	
+	public int deleteLikeByPostIdAndUserId(int postId, int userId) {
+		return likeRepository.deleteLikeByPostIdAndUserId(postId, userId);
+	}
+
 }

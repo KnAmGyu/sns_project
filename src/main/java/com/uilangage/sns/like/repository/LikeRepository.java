@@ -1,32 +1,26 @@
 package com.uilangage.sns.like.repository;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
-import com.uilangage.sns.like.domain.Like;
-
+@Repository
 public interface LikeRepository {
-
 	
-	public int addLike(
+	public int insertLike(
 			@Param("postId") int postId
 			, @Param("userId") int userId);
 	
-	public int selectCountLike(@Param("postId") int postId);
+	public int selectCountLike(
+			@Param("postId") int postId);
 	
 	public int selectCountLikeByUserId(
 			@Param("postId") int postId
 			, @Param("userId") int userId);
-
-	public int findByPostId(@Param("postId")int postId);
 	
-
-	public int deleteLikeBypostId(@Param("postId") int postId);
+	public int deleteLikeByPostId(@Param("postId") int postId);
 	
-	public int deleteLikeBypostIdAndUserId(
+	public int deleteLikeByPostIdAndUserId(
 			@Param("postId") int postId
 			, @Param("userId") int userId);
-	
-	
-	
-	
+
 }

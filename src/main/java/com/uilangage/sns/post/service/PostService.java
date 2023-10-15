@@ -28,75 +28,71 @@ public class PostService {
 	private UserService userService;
 	
 	@Autowired
-	private CommentService commentService;
-	
-	@Autowired
 	private LikeService likeService;
 	
-	public boolean deletePost(int postId, int userId) {
+	@Autowired
+	private CommentService commentService;
+	
+	public int deletePost(int postId, int userId) {
 		
-		commentService.deleteComment(postId);
+		// 첨부된 파일 삭제 
+		Post post = postRepository.selectPost(postId);
 		
-		likeService.deleteLikeBypostId(postId);
-		
-		Post post = postRepository.findById(postId);
+		if(post.getUserId() != userId) {
+			return 0;
+		}
 		
 		FileManager.removeFile(post.getImagePath());
 		
-		postRepository.findById(postId).ifPresent(post -> postRepository.delete(post));
+		// 댓글 삭제
+		commentService.deleteCommentByPostId(postId);
 		
-		if(post.getUserId() != 0 && post == null) {
-			return true;
-		}
+		// 좋아요 삭제
+		likeService.deleteLikeByPostId(postId);
 		
+		return postRepository.deletePost(postId);
 		
 	}
 	
-	public List<PostDetail> getPostList(int loginUserId){
+	
+	public int addPost(int userId, String content, MultipartFile file) {
 		
-		List<Post> postList = postRepository.findAllByOrderByIdDesc();
+		String imagePath = FileManager.saveFile(userId, file);
 		
-		List<PostDetail> postDetailList = new ArrayList<>(); 
+		return postRepository.insertPost(userId, content, imagePath);
+		
+	}
+	
+	public List<PostDetail> getPostList(int loginUserId) {
+	
+		List<Post> postList = postRepository.selectPostList();
+		List<PostDetail> postDetailList = new ArrayList<>();
 		for(Post post:postList) {
 			
 			int userId = post.getUserId();
-			User user = userService.getUserIdByPost(userId);
-			// 좋아요 개수 조회
+			User user = userService.getUserById(userId);
+			// 좋아요 개수 조회 
 			int likeCount = likeService.countLike(post.getId());
-			boolean islike = likeService.isLike(post.getId(), loginUserId);
+			boolean isLike = likeService.isLike(post.getId(), loginUserId);
 			
-			List<CommentDetail> commentList = commentService.getCommentDetailList(post.getId());
+			List<CommentDetail> commentList = commentService.getCommentList(post.getId());
 			
- 		   	PostDetail postDetail = PostDetail.builder()
-						   			.id(post.getId())
+			PostDetail postDetail = PostDetail.builder()
+									.id(post.getId())
 									.userId(userId)
 									.content(post.getContent())
 									.imagePath(post.getImagePath())
 									.loginId(user.getLoginId())
 									.likeCount(likeCount)
-									.isLike(islike)
+									.isLike(isLike)
 									.commentList(commentList)
 									.build();
 			
 			postDetailList.add(postDetail);
 		}
-		 return postDetailList;
-}
-	
-	
-	public Post addPost(
-			int userId
-			, String content
-			, MultipartFile file) {
 		
-		String imagePath = FileManager.saveFile(userId, file);
+		return postDetailList;
 		
-		Post post = Post.builder()
-						.userId(userId)
-						.content(content)
-						.imagePath(imagePath)
-						.build();
-		
-		return postRepository.save(post);
-		}
+	}
+
 }

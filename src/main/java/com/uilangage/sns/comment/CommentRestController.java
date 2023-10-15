@@ -26,17 +26,15 @@ public class CommentRestController {
 			, HttpSession session) {
 		
 		int userId = (Integer)session.getAttribute("userId");
-		
-		
-		Comment comment = commentService.addComment(postId, userId, content);
+		int count = commentService.addComment(userId, postId, content);
 		
 		Map<String, String> resultMap = new HashMap<>();
-		
-		if(comment != null) {
+		if(count == 1) {
 			resultMap.put("result", "success");
-		}else {
+		} else {
 			resultMap.put("result", "fail");
 		}
+		
 		return resultMap;
 		
 	}
